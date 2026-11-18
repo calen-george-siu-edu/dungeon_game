@@ -5,6 +5,7 @@
 #include "dungeon.h"
 #include "player.h"
 
+static void playerFightMonster(Player* player, int monsterStrength);
 
 void playerAction(Player* player, Room* room) {
     switch (room->type) {
@@ -20,7 +21,7 @@ void playerAction(Player* player, Room* room) {
     }
 }
 
-void playerFightMonster(Player* player, int monsterStrength) {
+static void playerFightMonster(Player* player, int monsterStrength) {
     // Simple fight mechanism: if player's strength is higher, they win.
     printf("A monster appears! It has a strength of %d!\n", monsterStrength);
     if (player->strength >= monsterStrength) {
