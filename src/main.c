@@ -35,7 +35,7 @@ void playGame(int numRooms) {
 
     Room *dungeonHead = createDungeon(numRooms); // Create the dungeon
 
-    Player player = {"Adventurer", 20, 100}; // Create a player with 20 strength and 100 health
+    Player player = {"Adventurer", 20, 100, 0}; // Create a player with 20 strength and 100 health
 
     gameLoop(&player, dungeonHead); // Start the game loop
 

@@ -8,9 +8,11 @@ typedef struct {
     char* name;
     int strength;
     int health;
+    unsigned int coins;
 } Player;
 
+typedef enum  { FIGHT, FLEE, VIEWSTATS } PlayerDecision;
+
 void playerAction(Player* player, Room* room);
-void playerFightMonster(Player* player, int monsterStrength);
 
 #endif
