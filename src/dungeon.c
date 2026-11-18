@@ -14,7 +14,12 @@ static Room* createRoom(int index) {
     room->type = rand() % 3; // Randomly assign room type
     // Randomly assign room value based on room type 
     // (10-60 for coins treasure, 10-50 strength for monster)
-    room->value = (room->type == MONSTER) ? (rand() % 5 + 1) * 10 : (rand() % 50 + 10);
+    int min_strength = (index + 1) * 5;
+    int max_strength = min_strength * 2;
+    int money = (index + 1) * 5;
+    room->value = (room->type == MONSTER) 
+                ? (rand() % (max_strength - min_strength + 1)) //uses a different method  to ensure that the the minimum and max stength increases linearly with the depth
+                : (rand() % money);//makes it so that as the depth increases, the more treasure there will be in the room
     room->next = NULL;
     return room;
 }
