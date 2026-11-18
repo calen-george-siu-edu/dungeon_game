@@ -5,8 +5,11 @@
 //Headers
 #include "dungeon.h"
 
+//Prototypes
+static Room* createRoom(int index);
 
-Room* createRoom(int index) {
+
+static Room* createRoom(int index) {
     Room *room = malloc(sizeof(Room));
     room->type = rand() % 3; // Randomly assign room type
     // Randomly assign room value based on room type 

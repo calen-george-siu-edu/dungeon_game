@@ -11,6 +11,6 @@ typedef struct {
 } Player;
 
 void playerAction(Player* player, Room* room);
-void playerFightMonster(Player* player, int monsterStrength);
+
 
 #endif
