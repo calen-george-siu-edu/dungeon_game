@@ -14,14 +14,15 @@
 //Prototypes
 static void playerEncounterMonster(Player* player, int monsterStrength);
 static void getPlayerInput(const char* prompt, char* inputBuffer, size_t size);
-static void fight();
-static void flee();
-static void stats();
+static void fight(Player* player, int monsterStrength);
+static void flee(Player* player, int monsterStrength);
+static void stats(Player* player, int monsterStrength);
 
 //Functions
 void playerAction(Player* player, Room* room) {
     switch (room->type) {
         case MONSTER:
+            printf("A monster appears! It has a strength of %d!\n", room->value);
             playerEncounterMonster(player, room->value);
             break;
         case TREASURE:
@@ -37,37 +38,16 @@ void playerAction(Player* player, Room* room) {
 static void playerEncounterMonster(Player* player, int monsterStrength) {
     // Simple encounter mechanism
     
-    printf("A monster appears! It has a strength of %d!\n", monsterStrength);
-    
-
     char decision[BUFFERSIZE];
     getPlayerInput("Would you like to fight or flee? (/stats to check your stats)\n", decision, sizeof(decision));
 
-    while(1){
-        if (strcmp(decision, "fight") == 0){
-            fight();
-            break;
-        }
-        else if(strcmp(decision, "flee") == 0){
-            flee();
-            break;
-        }
-        else if (strcmp(decision, "/stats") == 0){
-            stats();
-            break;
-        }
-        else printf("Unrecognized input. Accepted inputs are 'fight', 'flee', or '/stats'\n"); 
+    if (strcmp(decision, "fight") == 0) fight(player, monsterStrength);
+    else if(strcmp(decision, "flee") == 0) flee(player, monsterStrength);
+    else if (strcmp(decision, "/stats") == 0) stats(player, monsterStrength);
+    else {
+        printf("Unrecognized input.\n");
+        playerEncounterMonster(player,monsterStrength);
     }
-
-
-
-
-
-
-
-
-    }
-
 }
 
 static void fight(Player* player, int monsterStrength) {
@@ -88,15 +68,34 @@ static void fight(Player* player, int monsterStrength) {
 }
 
 static void flee(Player* player, int monsterStrength){
-    int cost = monsterStrength + (monsterStrength / 3);
+    char decision[100];
+    int cost = monsterStrength + (monsterStrength / 3); //1.33 * monsterstrength
     printf("The monster doesn't let you run for free, it will cost %d coins\n", cost);
-    printf("Do you still want to flee?(y/n)\n");
+    getPlayerInput("Do you still want to flee?(y/n)\n", decision, sizeof(decision));
+    if(strcmp(decision, "y") == 0) {
+        if( (int) player->coins >= cost){
+            player->coins -= cost;
+            printf("The monster accepted your payment, you now have %d coins\n", player->coins);
+        } else {
+            printf("Dude ur broke asf, you gotta fight the monster:(\n");
+            fight(player,monsterStrength);
+        }
+    } else if (strcmp(decision, "n") == 0) {
+        playerEncounterMonster(player,monsterStrength);
+    } else {
+        printf("Unrecognized input, try again\n");
+        flee(player,monsterStrength);
+    }
 }
 
 static void stats(Player* player, int monsterStrength){
-    printf("You are %s", player->name);
-    printf("You have %d", player->)
+    printf("-You are %s\n", player->name);
+    printf("-You have %d hp\n", player->health);
+    printf("-You have level %d strength\n", player->strength);
+    printf("-You have %d coins\n", player->coins);
+    playerEncounterMonster(player, monsterStrength);
 }
+
 static void getPlayerInput(const char* prompt, char* inputBuffer, size_t size){
     printf("%s", prompt);
     if (fgets(inputBuffer, size, stdin) == NULL){
