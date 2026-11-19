@@ -12,7 +12,7 @@ typedef struct Room {
 } Room;
 
 //Function prototypes
-Room* createRoom(int index);
+
 Room* createDungeon(int numRooms);
 void deleteDungeon(Room *dungeon);
 void displayRoom(const Room* room);

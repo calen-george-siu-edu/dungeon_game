@@ -10,7 +10,7 @@
 
 
 // Function Prototypes
-void playGame(int numRooms);
+static void playGame(int numRooms);
 
 // Main Function
 int main(int argc, char *argv[]) {
@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-void playGame(int numRooms) {
+static void playGame(int numRooms) {
     srand((unsigned int)time(NULL)); // Seed the random number generator
 
     Room *dungeonHead = createDungeon(numRooms); // Create the dungeon
