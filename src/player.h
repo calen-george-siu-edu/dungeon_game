@@ -11,8 +11,6 @@ typedef struct {
     unsigned int coins;
 } Player;
 
-typedef enum  { FIGHT, FLEE, VIEWSTATS } PlayerDecision;
-
 void playerAction(Player* player, Room* room);
 
 #endif
