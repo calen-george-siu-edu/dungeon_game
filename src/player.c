@@ -68,7 +68,7 @@ static void fight(Player* player, int monsterStrength) {
 }
 
 static void flee(Player* player, int monsterStrength){
-    char decision[100];
+    char decision[BUFFERSIZE];
     int cost = monsterStrength + (monsterStrength / 3); //1.33 * monsterstrength
     printf("The monster doesn't let you run for free, it will cost %d coins\n", cost);
     getPlayerInput("Do you still want to flee?(y/n)\n", decision, sizeof(decision));
