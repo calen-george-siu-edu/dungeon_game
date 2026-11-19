@@ -8,9 +8,9 @@ typedef struct {
     char* name;
     int strength;
     int health;
+    unsigned int coins;
 } Player;
 
 void playerAction(Player* player, Room* room);
-
 
 #endif
